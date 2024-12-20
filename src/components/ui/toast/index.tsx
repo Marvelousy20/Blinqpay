@@ -135,7 +135,7 @@ const notify: NotifyVariant = {
       variant: "warn",
       title: title,
       action: action && (
-        <ToastAction onClick={action.onClick} altText="Try again">
+        <ToastAction onClick={action.onClick} altText="Tr`y again">
           {action.label}
         </ToastAction>
       ),

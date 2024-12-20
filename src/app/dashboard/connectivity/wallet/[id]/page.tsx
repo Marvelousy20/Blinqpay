@@ -103,10 +103,10 @@ export default function Connectivity() {
         sCB(res) {
           setIsLoading(false);
           setIsSuccess(true);
-          console.log(res)
+          console.log(res);
         },
         eCB(res) {
-          console.error(res.error)
+          console.error(res.error);
           setIsLoading(false);
         },
       });
@@ -134,7 +134,7 @@ export default function Connectivity() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full mt-[3.375rem] "
+            className="w-full mt-[3.375rem]"
           >
             <div className="space-y-[1.75rem]">
               <FormField
