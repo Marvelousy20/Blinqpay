@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/context/store";
 import { notify } from "@/components/ui/toast";
 import { bankList } from "../constants";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import apiCAll from "@/lib/apiCall";
 import { IProviders } from "@/types";
 import { AlertTriangle } from "lucide-react";
@@ -17,17 +17,23 @@ export default function Connected() {
   const { loggedIn } = useStore();
   console.log("user logged in?", loggedIn);
   const [data, setData] = useState<IProviders[]>([]);
+  const [isFetching, setIsFetching] = React.useState(false);
 
   async function getConnectedProviders() {
+    if (isFetching) return;
+
     try {
+      setIsFetching(true);
       await apiCAll({
         url: "provider/connected",
         method: "get",
         sCB(res) {
           setData(res.data);
+          setIsFetching(false);
         },
         eCB(res) {
           console.log(res);
+          setIsFetching(false);
         },
       });
     } catch (error) {
@@ -45,9 +51,7 @@ export default function Connected() {
       method: "post",
       sCB(res) {
         console.log(res);
-        setData((prevData) =>
-          prevData.filter((provider) => provider?.id !== id)
-        );
+        setData((prevData) => prevData.filter((provider) => provider?.id !== id));
       },
       eCB(res) {
         console.error(res.error);
@@ -67,16 +71,10 @@ export default function Connected() {
           >
             <div className="w-full max-w-[16.25rem] relative h-[3.438rem]">
               {/* Add image when they come from the backend */}
-              {provider?.logo && (
-                <Image src={provider?.logo} alt={"bank logo"} fill />
-              )}
+              {provider?.logo && <Image src={provider?.logo} alt={"bank logo"} fill />}
             </div>
 
-            <Button
-              variant={"outline"}
-              className="bg-gray-300"
-              onClick={() => disconnectProvider(provider?.id)}
-            >
+            <Button variant={"outline"} className="bg-gray-300" onClick={() => disconnectProvider(provider?.id)}>
               Disconnect
             </Button>
           </div>
@@ -95,6 +93,6 @@ export default function Connected() {
     //     </div>
     //   </div>
     // </div>
-    <EmptyState label="No Exchange connected yet." />
+    <EmptyState isFetching={isFetching} label="No Exchange connected yet." />
   );
 }

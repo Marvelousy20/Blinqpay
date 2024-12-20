@@ -7,13 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm, Form, set } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import * as yup from "yup";
 import { OTP } from "../otp-input";
@@ -26,9 +20,7 @@ export default function VerifyEmail() {
   const [code, setCode] = React.useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [email, setEmail] = React.useState<string>(
-    searchParams.get("email") as string
-  );
+  const [email, setEmail] = React.useState<string>(searchParams.get("email") as string);
   /*
    *
    *
@@ -36,6 +28,8 @@ export default function VerifyEmail() {
    *
    */
   async function handleSubmitOTP() {
+    if (isLoading) return;
+
     setIsLoading(true);
     if (code.length < 6) return notify.error("Code is less that 6 digits!");
 
@@ -61,9 +55,9 @@ export default function VerifyEmail() {
   }
 
   async function handleResendCode() {
+    if (isLoading) return;
     setIsLoading(true);
-    if (!email || !searchParams.get("email"))
-      return notify.error("No email provided!!");
+    if (!email || !searchParams.get("email")) return notify.error("No email provided!!");
 
     await apiCAll({
       url: "/auth/verify/email/code/resend",
@@ -98,9 +92,7 @@ export default function VerifyEmail() {
     <main className="by-milky dark:bg-primary-dashboard dark:text-white p-5 md:p-10 md:w-[30rem] flex flex-col items-center text-left  md:text-center">
       <div>
         <h3 className="text-4xl font-bold">Verify your account</h3>
-        <p className="mt-2 opacity-60">
-          We sent you a verification code to your mail at {email}
-        </p>
+        <p className="mt-2 opacity-60">We sent you a verification code to your mail at {email}</p>
       </div>
 
       <div className="w-auto mt-[2.625rem]">
@@ -118,13 +110,8 @@ export default function VerifyEmail() {
       </Button>
 
       <div className="mt-12 flex justify-center gap-x-1">
-        <span className="text-center block opacity-25">
-          Don&apos;t receive code?
-        </span>
-        <button
-          onClick={handleResendCode}
-          className="text-[#6E5BFF] block text-center opacity-100"
-        >
+        <span className="text-center block opacity-25">Don&apos;t receive code?</span>
+        <button onClick={handleResendCode} className="text-[#6E5BFF] block text-center opacity-100">
           Resend Code
         </button>
       </div>

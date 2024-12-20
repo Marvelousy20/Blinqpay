@@ -12,7 +12,7 @@ import { ThemeProvider } from "@/lib/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BlinqPay",
+  title: "AtlasPay",
   description: "Bridging the gap between crypto and fiat economies",
 };
 

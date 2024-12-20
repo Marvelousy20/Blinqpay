@@ -5,18 +5,10 @@ import { FileSearch } from "lucide-react";
 
 interface IEmptyState {
   label?: string;
+  isFetching?: boolean;
 }
-export default function EmptyState({ label }: IEmptyState) {
-  const [isFetching, setIsFetching] = useState(true);
+export default function EmptyState({ label, isFetching }: IEmptyState) {
   const router = useRouter();
-
-  useEffect(() => {
-    setIsFetching(true);
-
-    setTimeout(() => {
-      setIsFetching(false);
-    }, 15000);
-  }, [router.refresh]);
 
   return isFetching ? (
     <div className="w-full grid place-content-center">
@@ -33,9 +25,7 @@ export default function EmptyState({ label }: IEmptyState) {
         </div>
 
         <div className="max-w-sm text-center mt-4">
-          <span className="text-sm">
-            {label || "No result found or check your connectivity."}
-          </span>
+          <span className="text-sm">{label || "No result found or check your connectivity."}</span>
         </div>
       </div>
     </div>

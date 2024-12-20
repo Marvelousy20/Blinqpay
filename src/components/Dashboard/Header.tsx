@@ -36,8 +36,8 @@ export default function Header() {
       {/* Timer and profile */}
       <div className="flex justify-between items-center w-full lg:w-1/2 px-5 lg:px-0">
         <div className="hidden lg:block">
-          <div className="bg-button-primary bg-opacity-20 rounded-3xl py-3 px-12">
-            30 : 20 : 2
+          <div className="bg-button-primary bg-opacity-20 rounded-3xl py-3 px-0">
+            
           </div>
         </div>
 

@@ -56,11 +56,7 @@ export default function Connectivity() {
     //   label: "Create",
     //   action: () => setChangePass(true),
     // },
-    {
-      name: "PIN",
-      label: "Change",
-      action: () => setChangePass(true),
-    },
+    
     {
       name: "Privacy Policy",
       label: "View",
@@ -76,11 +72,7 @@ export default function Connectivity() {
     //   label: "Details",
     //   action: () => setUnlist(true),
     // },
-    {
-      name: "Payment methods",
-      label: "Manage",
-      action: () => setChangePayMethod(true),
-    },
+    
   ];
   /*
    *

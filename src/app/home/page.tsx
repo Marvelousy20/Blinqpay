@@ -190,7 +190,7 @@ export default function Home() {
         {/* How to use Blinqpay */}
         <div className="mt-28">
           <h1 className="text-2xl md:text-3xl font-bold text-opacity-20">
-            How to use BlinqPay in these three steps?
+            How to use AtlasPay in these three steps?
           </h1>
 
           {/* <Tabs defaultValue="signup" className="w-full mt-9">

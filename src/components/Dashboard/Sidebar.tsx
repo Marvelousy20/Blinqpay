@@ -26,16 +26,7 @@ const routes: IRoutes[] = [
     ),
     link: "/dashboard",
   },
-  {
-    name: "Sell",
-    icon: () => (
-      <div>
-        <Icons.Sell stroke="white" className="dark:block hidden" />
-        <Icons.Sell stroke="black" className="dark:hidden block" />
-      </div>
-    ),
-    link: "/dashboard/sell",
-  },
+
   {
     name: "Bank History",
     icon: () => (
@@ -76,16 +67,7 @@ const routes: IRoutes[] = [
     ),
     link: "/dashboard/subscription",
   },
-  {
-    name: "Partners",
-    icon: () => (
-      <div>
-        <Icons.Partners fill="white" className="dark:block hidden" />
-        <Icons.Partners fill="black" className="dark:hidden block" />
-      </div>
-    ),
-    link: "/dashboard/partners",
-  },
+  
   {
     name: "Settings",
     icon: () => (
@@ -109,7 +91,7 @@ export default function Sidebar({ setOpen }: SidebarProps) {
   return (
     <aside className="w-auto lg:w-44 xl:w-[13rem] space-y-8 pt-5">
       <div>
-        <div className="text-3xl font-bold hidden lg:block">BlinqPay</div>
+        <div className="text-3xl font-bold hidden lg:block">AtlasPay</div>
       </div>
 
       {routes.map((route, index) => {

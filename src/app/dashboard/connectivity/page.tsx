@@ -11,11 +11,7 @@ export default function Connectivity() {
   const { loggedIn, getAllProviders, providers } = useStore();
   console.log("user logged in?", loggedIn);
 
-  function handleConnect(
-    type: "BANK" | "EXCHANGE" | null | undefined,
-    bankName?: string,
-    id?: number
-  ) {
+  function handleConnect(type: "BANK" | "EXCHANGE" | null | undefined, bankName?: string, id?: number) {
     if (type === "BANK") {
       return router.push(`/dashboard/connectivity/bank/${bankName}`);
     }
@@ -40,19 +36,12 @@ export default function Connectivity() {
               >
                 <div className="w-full max-w-[16.25rem] relative h-[3.438rem]">
                   {/* Add bank image */}
-                  {providers?.logo && (
-                    <Image src={providers?.logo} alt={"bank logo"} fill />
-                  )}
+                  {providers?.logo && <Image src={providers?.logo} alt={"bank logo"} fill />}
                 </div>
                 <Button
-                  onClick={() =>
-                    handleConnect(providers.type, providers.name, providers.id)
-                  }
+                  onClick={() => handleConnect(providers.type, providers.name, providers.id)}
                   variant={"outline"}
-                  disabled={
-                    providers.status === "COMING_SOON" ||
-                    providers.status === "ACTIVE"
-                  }
+                  disabled={providers.status === "COMING_SOON" || providers.status === "ACTIVE"}
                   className="bg-gray-300"
                 >
                   {providers.status === "ACTIVE"

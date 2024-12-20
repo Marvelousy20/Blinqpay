@@ -6,14 +6,7 @@ import { Input, PasswordInput } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button, buttonVariants } from "../ui/button";
 import { cn, formatPhone, saveToken } from "@/lib/utils";
 import React from "react";
@@ -31,10 +24,7 @@ const Schema = yup.object().shape({
     .required("Password is required")
     .min(12, "Password must be at least 12 characters")
     .max(20, "Password cannot exceed 20 characters")
-    .matches(
-      /^(?=.*[A-Z])(?=.*\d).+$/,
-      "Password must contain at least one  uppercase and one number"
-    ),
+    .matches(/^(?=.*[A-Z])(?=.*\d).+$/, "Password must contain at least one  uppercase and one number"),
   phoneNumber: yup.string().required("Phone number is required"),
   confirmPassword: yup
     .string()
@@ -75,6 +65,8 @@ export default function Register() {
    *
    */
   async function onSubmit(values: SchemaTypes) {
+    if (isLoading) return;
+
     let requiredValues = {
       lastName: values.lastName,
       firstName: values.firstName,
@@ -116,13 +108,7 @@ export default function Register() {
     <div className="lg:grid grid-cols-2 gap-x-20 bg-milky sm:bg-white dark:bg-primary dark:text-white lg:px-20 xl:px-36 min-h-screen items-center pt-4 lg:pt-2 xl:pt-4">
       {/* Illustration */}
       <div>
-        <Image
-          src="/onboarding/signup.svg"
-          alt="register"
-          width={500}
-          height={490}
-          className="hidden xl:block"
-        />
+        <Image src="/onboarding/signup.svg" alt="register" width={500} height={490} className="hidden xl:block" />
         <Image
           src="/onboarding/signup.svg"
           alt="register"
@@ -136,16 +122,11 @@ export default function Register() {
       <div className="w-full mx-auto sm:rounded-xl sm:bg-milky dark:sm:bg-onboard-bg sm:border border-white p-5 border-opacity-25 sm:max-w-xl lg:max-w-[35rem]">
         <div>
           <h3 className="text-4xl font-bold">Get Started</h3>
-          <p className="opacity-60 mt-2">
-            Create an account to start your journey
-          </p>
+          <p className="opacity-60 mt-2">Create an account to start your journey</p>
         </div>
 
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full mt-8 lg:mt-4 xl:mt-8"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mt-8 lg:mt-4 xl:mt-8">
             <div className="lg:flex gap-x-6 w-full">
               <FormField
                 control={form.control}
@@ -251,12 +232,7 @@ export default function Register() {
                       Referral Code
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        className="dark:bg-auth-input"
-                        id="referral"
-                        placeholder="(optional)"
-                        {...field}
-                      />
+                      <Input className="dark:bg-auth-input" id="referral" placeholder="(optional)" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -289,9 +265,7 @@ export default function Register() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="confirmPassword">
-                      Confirm Password
-                    </FormLabel>
+                    <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
                     <FormControl>
                       <PasswordInput
                         // type="password"
@@ -311,33 +285,20 @@ export default function Register() {
 
             <div className="mt-10 text-center space-y-4 lg:mt-6 xl:mt-10">
               <div className="w-ful">
-                <Button
-                  isLoading={isLoading}
-                  variant={"primary"}
-                  className="w-full py-3"
-                  size={"lg"}
-                >
+                <Button isLoading={isLoading} variant={"primary"} className="w-full py-3" size={"lg"}>
                   Sign Up
                 </Button>
               </div>
 
               <div className="w-full mt-4">
-                <Link
-                  href="/auth"
-                  className={cn(
-                    "w-full",
-                    buttonVariants({ variant: "default", size: "lg" })
-                  )}
-                >
+                <Link href="/auth" className={cn("w-full", buttonVariants({ variant: "default", size: "lg" }))}>
                   Log In
                 </Link>
               </div>
             </div>
 
             <div className="max-w-[23rem] mx-auto text-center mt-10 lg:mt-6 xl:mt-10">
-              <span className="opacity-60">
-                By clicking continue, you accept Blinqpay&apos;s
-              </span>
+              <span className="opacity-60">By clicking continue, you accept Blinqpay&apos;s</span>
               <span> Terms of Service</span>
               <span className="opacity-60"> and </span>
               <span>Privacy Policy</span>.

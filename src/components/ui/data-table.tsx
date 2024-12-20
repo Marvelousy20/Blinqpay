@@ -14,14 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import * as React from "react";
 import { DataTablePagination } from "./data-table-pagination";
 import EmptyState from "../empty-state";
@@ -84,12 +77,9 @@ export function DataTable<TData, TValue>({
   const [rowSelection, setRowSelection] = React.useState({});
   // console.log(data, "this is the data from the table!");
 
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -103,7 +93,7 @@ export function DataTable<TData, TValue>({
     },
     initialState: {
       pagination: {
-        pageSize: 50,
+        pageSize: 10,
       },
     },
     enableRowSelection: true,
@@ -127,19 +117,11 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup, index) => (
-              <TableRow
-                className={`border-b-transparent ${noHeader ? "hidden" : ""}`}
-                key={index}
-              >
+              <TableRow className={`border-b-transparent ${noHeader ? "hidden" : ""}`} key={index}>
                 {headerGroup.headers.map((header, index) => {
                   return (
                     <TableHead key={index}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -150,33 +132,16 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => (
-                <TableRow
-                  key={index}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={index} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell, index) => (
-                    <TableCell key={index}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={index}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  {isFiltered ? (
-                    <EmptyFilterState />
-                  ) : emptyState ? (
-                    emptyState
-                  ) : (
-                    <EmptyState label={emptyStateLabel} />
-                  )}
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  {isFiltered ? <EmptyFilterState /> : emptyState ? emptyState : <EmptyState label={emptyStateLabel} />}
                 </TableCell>
               </TableRow>
             )}
@@ -188,46 +153,34 @@ export function DataTable<TData, TValue>({
         <div className="table-pagination w-auto flex space-x-2 pb-4">
           <Button
             disabled={!paginationData.hasPrevious}
-            onClick={() =>
-              getPageData && getPageData(paginationData.prevPage as number)
-            }
+            onClick={() => getPageData && getPageData(paginationData.prevPage as number)}
             className="capitalize bottom-0 rounded-full"
           >
             {"<"}
           </Button>
-          {
-            [1, 2, 3, 4, 5].map((page, index) => (
-              <Button
-                key={index}
-                onClick={() => getPageData && getPageData(page)}
-                className="rounded-full"
-                variant={paginationData.page === page ? "primary" : "default"}
-              >
-                {page}
-              </Button>
-            ))
-          }
+          {[1, 2, 3, 4, 5].map((page, index) => (
+            <Button
+              key={index}
+              onClick={() => getPageData && getPageData(page)}
+              className="rounded-full"
+              variant={paginationData.page === page ? "primary" : "default"}
+            >
+              {page}
+            </Button>
+          ))}
 
-          {
-            paginationData.page &&  (paginationData.page > 5) && (
-              <Button
-               
-                className="rounded-full"
-                variant={"primary"}
-              >
-                {paginationData.page}
-              </Button>
-            )
-          }
+          {paginationData.page && paginationData.page > 5 && (
+            <Button className="rounded-full" variant={"primary"}>
+              {paginationData.page}
+            </Button>
+          )}
 
           <Button
             disabled={!paginationData.hasNext}
-            onClick={() =>
-              getPageData && getPageData(paginationData.next as number)
-            }
+            onClick={() => getPageData && getPageData(paginationData.next as number)}
             className="rounded-full"
           >
-                        {">"}
+            {">"}
           </Button>
           {/* {paginationData.lastPage && (
             <Button
