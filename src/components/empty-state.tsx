@@ -23,9 +23,10 @@ export default function EmptyState({ label, isFetching }: IEmptyState) {
         <div>
           <FileSearch size={56} />
         </div>
-
         <div className="max-w-sm text-center mt-4">
-          <span className="text-sm">{label || "No result found or check your connectivity."}</span>
+          <span className="text-sm">
+            {label || "No result found or check your connectivity."}
+          </span>
         </div>
       </div>
     </div>
